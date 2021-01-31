@@ -112,16 +112,18 @@ var Juego = {
 			this.disparar();
 		}
 
-		// Colision
-		juego.physics.arcade.overlap(balas, malos, this.colision, null, this);
 
 		// Contador de vidas
 		malos.forEachAlive(function (m) {
-			if (m.position.y > 520 && m.position.y < 521) {
+			if (m.position.y > 520) {
 				vidas -= 1;
+				m.kill();
 				txtVidas.text = vidas;
 			}
 		});
+
+		// Colision
+		juego.physics.arcade.overlap(balas, malos, this.colision, null, this);
 
 		// Game Over
 		if (vidas == 0) {
@@ -146,18 +148,22 @@ var Juego = {
 		};
 
 		// Pasar de nivel
-		if (puntos == 2) {
+		if (puntos == 1) {
 			nivel += 1;
 			txtNivel.text = nivel;
 			velocity_malo += 25;
 			velocity_bala += 25;
-			if (nivel < 20) {
+			if (nivel < 10) {
 				tiempoEntreBalas -= 15;
 			}
 			puntos = 0;
 			txtPuntos.text = puntos;
 			vidas = 3;
 			txtVidas.text = vidas;
+
+			malos.forEachAlive(function (m) {
+				m.kill();
+			});
 		}
 	},
 
