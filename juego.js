@@ -165,6 +165,11 @@ var Juego = {
 				m.kill();
 			});
 		}
+
+		if (nivel == 10) {
+			juego.paused = true;
+			txtWin = juego.add.text(juego.width / 2 - 103.5, juego.height / 2 - 25, "Ganaste", { font: "40px Arial", fill: "#FFF" });
+		}
 	},
 
 	// Disparar
